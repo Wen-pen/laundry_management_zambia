@@ -1,0 +1,81 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Laundry Service Dashboard
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <div class="container">
+        <h1 class="mt-3">Hi {{request.user.first_name}}!</h1>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="container">
+        <h3 class="mt-3">
+            Your Orders
+        </h3>
+    </div>
+
+    <div class="container">
+        <table class="table table-bordered table-responsive mt-3">
+            <thead>
+                <tr class="table-active">
+                    <th>Order Date</th>
+                    <th>Status</th>
+                    <th>Delivery Date</th>
+                    <th>Price</th>
+                    <th>
+                        Items
+                    </th>
+                </tr>
+            </thead>
+            <tbody> 
+                {% for order in order_query%}
+                <tr>
+                    <td>{{order.order_date}}</td>
+                    <td>{{order.order_status}}</td>
+                    <td>{{order.delivery_date}}</td>
+                    <td>K {{order.price_calculated}}</td>
+                    <td>
+                        <a href="/view_items/{{order.id}}">
+                            View Items
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container p-3">
+        {%csrf_token%}
+        <div class="row-sm">
+            {{quant_form | crispy}}
+        </div>
+        
+    </div>
+    
+    <div class="container py-4">
+        <button type="button" class="btn btn-secondary" id="btn_orders">
+            Create new order
+        </button>
+    </div>
+
+{% else %}
+
+    <div class="mx-auto text-center">
+        <p class="pt-3">
+            You are not signed in
+        </p>
+       <a href="/accounts/login">
+            <button type="button" class="btn btn-secondary text-center">Login</button>
+        </a>
+    </div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "master.html" %}
+
+{% block content %}
+
+<div class="container py-3">
+    <h2>
+        Your Order
+    </h2>
+</div>
+
+<div class="container">
+    <table class="table table-bordered table-responsive">
+        <tr class="table-active">
+            <th>Item Type</th>
+            <th>Special Instructions</th>
+            <th>Optional Instructions</th>
+            <th>Wash Type</th>
+        </tr>
+        <tbody>
+            {% for item in order_items %}
+            <tr>
+                <td>{{item.category}}</td>
+                <td>{{item.special_instructions}}</td>
+                <td>{{item.optional_instructions}}</td>
+                <td>{{item.service_type}}</td> 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container ">
+    <h3 class="pb-3">
+        Price: K{{order.price_calculated}}
+    </h3>
+    <h5 class="pb-2">
+        Is this okay?
+    </h5>
+    <div class="d-flex justify-content-center">
+        <a href="payments/airtel"  style="text-decoration: none;">
+            <button type="button" class="btn btn-danger mb-2 mx-2">
+                <i class='bx bxs-phone'></i>
+                Airtel Money
+            </button>
+        </a>
+        <a href="payments/mtn"  style="text-decoration: none;">
+            <button type="button" class="btn btn-warning mb-2 mx-2">
+                <i class='bx bxs-phone'></i>
+                MTN Mobile Money
+            </button>
+        </a>
+        <a href="payments/credit"  style="text-decoration: none;">
+            
+            <button type="button" class="btn btn-primary mb-2 mx-2">
+                <i class='bx bxs-credit-card-alt'></i>
+                Credit Card
+            </button>
+        </a>
+        
+        <a href="rejected" style="text-decoration: none;"></a>
+            <button type="button" class="btn btn-dark mb-2 mx-2">
+                <i class='bx bxs-x-square'></i>
+                No, please go back
+            </button>
+        </a>
+    </div>
+    
+</div>
+    
+{% endblock %}

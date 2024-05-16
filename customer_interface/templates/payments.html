@@ -1,0 +1,75 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if method == "airtel" or  method == "mtn" %}
+        <div class="d-flex justify-content-center">
+                <div class="p-2 row">
+                    <form action="" method="post">
+                        {{name_form | crispy}}
+                        {%csrf_token%}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success text-center">
+                                Accept Payment 
+                                <i class='bx bx-money'></i>
+                            </button>  
+                        </div>
+                    </form>
+                </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="column">
+                    <h3 class="py-3">
+                        Billing Information
+                    </h3>
+                </div>
+            </div>
+            <form action="" method="post">
+                
+                <div class="row">
+                    {%csrf_token%}
+                    <div class="col-sm">
+                        {{credit_form.first_name | as_crispy_field}}
+                    </div>
+                    <div class="col-sm">
+                        {{credit_form.last_name | as_crispy_field}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        {{credit_form.street_address | as_crispy_field}}
+                    </div>
+                    <div class="col-sm">
+                        {{credit_form.city | as_crispy_field}}
+                    </div>
+                    <div class="col-sm">
+                        {{credit_form.country | as_crispy_field}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        {{credit_form.cc_number | as_crispy_field}}
+                    </div>
+                    <div class="col-3">
+                        {{credit_form.cc_expiry | as_crispy_field}}
+                    </div>
+                    <div class="col-3">
+                        {{credit_form.cc_code | as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class='bx bx-money'></i>
+                            Accept Payment 
+                        </button>
+                    </div>
+                </div> 
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  {% load static %}
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="{% static '/index.js' %}"></script>
+</head>
+<body  class="d-flex flex-column min-vh-100">
+  {% if user.is_authenticated %}
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand">
+          Laundry Service
+        </a>
+        <button class="navbar-toggler"data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/accounts/logout">Sign Out</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% else %}
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid ">
+        <a class="navbar-brand" href="/">
+          Laundry Service
+        </a>
+        <button class="navbar-toggler"data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/accounts/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/accounts/signup">Sign Up</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endif %}
+
+{% block content %}
+{% endblock %}
+<footer class="bg-secondary py-2 mt-auto">
+  <h5 class="text-center fw-light text-dark-50 py-3">
+       Developed by: MC
+  </h5> 
+</footer>
+</body>
+</html>

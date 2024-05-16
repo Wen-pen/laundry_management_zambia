@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+{%block title%} 
+    Orders Form
+{% endblock%}
+
+{%block content%}
+{% load static %}
+
+<h2 class="mt-3 mx-3">Order Creation Form</h2>
+
+<hr class="my4">
+
+<form action="" method="post">
+    
+    <div class="container">
+        {%csrf_token%}
+        
+            {{formset.management_form}}
+            {% for form in formset%}
+                <h4 class="py-3">Item {{forloop.counter}}</h4>
+                {{form | crispy}}
+            {%endfor%}
+        {{form.errors}}
+
+        <button type="submit" class="btn btn-secondary my-3">
+            Submit
+        </button>
+
+    </div>
+</form>
+{%endblock%}

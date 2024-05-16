@@ -1,0 +1,49 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+    Laundry Service Login
+{% endblock %}
+
+
+{%block content%}
+<div class="d-flex justify-content-center align-items-center vh-100 container-md">
+    <div class="card w-50 bg-active">
+      <div class="card-body">
+        <h3 class="text-center">
+            LOGIN
+        </h3>
+        <form method="post">
+            {% csrf_token %}
+            {{form | crispy}}
+            <div class="container">
+              <div class="row text-center">
+                <div class="col-6">
+                  <button type="submit" class="btn btn-secondary mx-2" >Log in</button>
+                </div>
+                <div class="col-6">
+                  <a href="/accounts/signup" >
+                    <button type="button" class="btn btn-secondary ">Sign Up</button>
+                  </a>
+                </div>
+                  
+                  
+              </div>
+            
+              <div class="container text-center">
+                <p class="py-3 fw-light">
+                  Forgot your password?
+                </p>
+                <a href="/accounts/password_reset" >
+                  <button type="button" class="btn btn-secondary ">Reset here</button>
+                </a>
+              </div>
+             
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

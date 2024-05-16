@@ -1,0 +1,141 @@
+{% extends 'master.html' %}
+
+{% block title %} 
+  Profile 
+{% endblock %}
+
+{% load static %} 
+
+{% block content %}
+
+<div class="container-responsive">
+  <div class="row">
+    <div class="col-sm-2">
+      <img src="{% static "default.jpg" %}" alt="Avatar Image" class="avatar
+      my-5 mx-3 text-center" style="width: 150px; height: 150px; vertical-align:
+      middle; border-radius: 50%;">
+    </div>
+    <div class="col-md mx-3">
+      <h1 class="fw-bolder my-3 mx-3">
+        {{request.user.first_name}} {{request.user.last_name}}
+      </h1>
+      <p class="fw-light mx-3">User: {{request.user.username}}</p>
+      <p class="fw-light mx-3">Email: {{request.user.email}}</p>
+      <p class="fw-light mx-3">Phone Number: {{request.user.phone_number}}</p>
+      <div class="col-sm">
+        <a href="/dashboard" style="text-decoration: none">
+          <button class="btn btn-secondary mx-3">View/Create Orders</button>
+        </a>
+        <a href="/profile_form">
+          <button class="btn btn-secondary mx-3">Change Profile Picture</button>
+        </a>
+      </div>
+    </div>
+    <div class="col mx-3">
+      <h1 class="fw-bolder mt-3 mx-auto px-3">Statistics</h1>
+      <p class="fw-light pt-2 px-3">Total Number of Orders: {{orders.count}}</p>
+      <p class="fw-light px-3">Average Order Spend: K {{price}}</p>
+      <p class="fw-light px-3">
+        Next Delivery Date: {{last_order.delivery_date}}
+      </p>
+    </div>
+  </div>
+  <hr class="my-3"/>
+  <div class="row">
+    <div class="col mx-3 my-2">
+      <h1 class="fw-bolder mx-3 p-3">Charts</h1>
+    </div>
+  </div>
+  <div class="row justify-content-space-evenly">
+    <div class="col mx-3 my-2">
+      <h4 class="text-center">Number of Items per order</h4>
+      <canvas id="myChart" ></canvas>
+    </div>
+    <div class="col mx-3 my-2">
+      <h4 class="text-center"> Item Type </h4>
+      <canvas id="anotherChart" ></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+  var ctx = document.getElementById("myChart");
+  let ctx2 = document.getElementById("anotherChart")
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: {{order_name | safe}},
+      datasets: [{
+        label: '# of Items',
+        data: {{count | safe}},
+        backgroundColor: [
+          'rgba(0, 0, 255, 0.2)',
+        ],
+        borderColor: [
+          'rgba(0,0,255,1)',
+        ],
+        borderWidth: 1
+      }]
+        },
+      options: {
+        responsive: true,
+        scales: {
+          x: [{
+              ticks: {
+                maxRotation: 90,
+                minRotation: 80
+              },
+              gridLines: {
+                offsetGridLines: true // à rajouter
+              }
+              },
+            {
+              position: "top",
+              ticks: {
+                  maxRotation: 90,
+                  minRotation: 80
+              },
+              gridLines: {
+                  offsetGridLines: true // et matcher pareil ici
+              }
+            }],
+          y: [{
+              ticks: {
+              beginAtZero: true
+              }
+          }]
+      }
+    }
+  })
+
+  let anotherChart = new Chart(ctx2, {
+    type: "pie",
+    data: {
+        labels: {{item_label | safe}},
+        datasets: [{
+            backgroundColor: [
+            'rgba(255, 0, 0, 0.5)',    // Red
+            'rgba(0, 255, 0, 0.5)',    // Lime
+            'rgba(0, 0, 255, 0.5)',    // Blue
+            'rgba(255, 255, 0, 0.5)',  // Yellow
+            'rgba(255, 0, 255, 0.5)',  // Magenta
+            'rgba(0, 255, 255, 0.5)',  // Cyan
+            'rgba(255, 165, 0, 0.5)',  // Orange
+            'rgba(128, 0, 128, 0.5)',  // Purple
+            'rgba(0, 128, 0, 0.5)',    // Green
+            'rgba(128, 128, 128, 0.5)' // Gray
+          ],
+          data: {{item_data | safe}}
+        }]
+    },
+    options:{
+        responsive: true,
+        title: {
+            display: true,
+            text: "Number of Items Sent"
+        }
+    }
+})
+</script>
+{% endblock %}

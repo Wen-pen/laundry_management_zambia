@@ -1,0 +1,50 @@
+{% extends "master.html" %}
+
+{% block content %}
+    <div class="container p-3 my-3">
+        <table class="table table-bordered table-responsive  mt-3">
+            <thead>
+                <tr class="table-active">
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Cleaning Type
+                    </th>
+                    <th>
+                        Special Instructions
+                    </th>
+                    <th>
+                        Optional Instructions
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for item in order_items%}
+                <tr>
+                    <td>
+                        {{item.category}}
+                    </td>
+                    <td>
+                        {{item.service_type}}
+                    </td>
+                    <td>
+                        {{item.special_instructions}}
+                    </td>
+                    <td>
+                        {{item.optional_instructions}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <a href="/dashboard">
+            <button type="button" class="btn btn-secondary">
+                Go back
+            </button>
+        </a>
+    </div>
+{% endblock %}
