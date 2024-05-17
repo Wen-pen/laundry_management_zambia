@@ -42,11 +42,19 @@
         </h3>
     </div>
     <div class="container text-center p-3">
+        {% if user.is_authenticated %}
+        <a href="/accounts/login" style="text-decoration: none;">
+            <button type="button" class="btn btn-secondary text-center">
+                Login here!
+            </button>
+        </a>
+        {% else %}
         <a href="/accounts/signup" style="text-decoration: none;">
             <button type="button" class="btn btn-secondary text-center">
                 Sign up today!
             </button>
         </a>
+        {% endif %}
     </div>
 </section>
 {% endblock %}

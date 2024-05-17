@@ -43,12 +43,12 @@ def payments(request, methods):
             name_form = NameForm(request.POST)
             order = Orders.objects.last()
             Sales.objects.create(order_id_fk = order)
-            return redirect("/dashboard")
+            return redirect("/dashboard/1")
         else:
             credit_form = CreditForm(request.POST)
             order = Orders.objects.last()
             Sales.objects.create(order_id_fk = order)
-            return redirect("/dashboard")
+            return redirect("/dashboard/1")
         
     template = loader.get_template('payments.html')
     name_form = NameForm()
@@ -79,6 +79,7 @@ def default(request):
 
 def logout_view(request):
     logout(request)
+    
 @login_required
 def orders(request, quantity):
     OrderModelFormSet = modelformset_factory(OrderItem, form=OrderForm, extra=quantity)
@@ -97,12 +98,12 @@ def orders(request, quantity):
                     instance.order_id_fk = order_id_fk
                     instance.save()
 
-                
                 return redirect("/prices")
 
     context = {"formset": Order_Form}
     template = loader.get_template('orders.html')
     return HttpResponse(template.render(context, request))
+
 @login_required
 def prices(request):
     order_query = Orders.objects.last()
@@ -179,22 +180,4 @@ def profile_view(request):
                "item_data": item_data
     }
     
-    return HttpResponse(template.render(context, request))
-
-@login_required
-def profile_form(request):
-    if request.method == 'POST':
-        form = UpdateProfileForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            CustomUser.objects.filter()
-            form.save()
-            messages.success(request, f'Your account has been updated!')
-            print(request.user.profile_picture)
-            return redirect('/profile')
-        else:
-            print("IWE THIS BINE IS TAPPED")
-    form = UpdateProfileForm()
-    template = loader.get_template('profile_form.html')
-    context = {'form': form}
-
     return HttpResponse(template.render(context, request))

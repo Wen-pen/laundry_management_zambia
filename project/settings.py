@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-LOGIN_REDIRECT_URL = '/dashboard'
+LOGIN_REDIRECT_URL = '/dashboard/1'
 
 LOGOUT_REDIRECT_URL = '/accounts/login'
 
