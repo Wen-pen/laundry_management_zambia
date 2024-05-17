@@ -52,6 +52,8 @@ class Orders(models.Model):
                     item_price = 45
                 case "Sweaters":
                     item_price = 55
+                case "Blazer":
+                    item_price = 75
 
             if item.special_instructions != "OTHER":
                 final_price = final_price + item_price + 20
