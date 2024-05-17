@@ -11,17 +11,22 @@ from django.forms import modelformset_factory
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from collections import Counter
+from django.core.paginator import Paginator
 
 @login_required
-def dashboard(request):
+def dashboard(request, page):
     if request.user.is_authenticated:
         username = request.user.id
         real_user = request.user.get_username()
         quant_form = QuantityForm()
         order_query = Orders.objects.filter(user_id_fk=username)
-        context = {'order_query':order_query, 
+        ordered_query = order_query.order_by("order_date")
+        paginator = Paginator(ordered_query, per_page=5)
+        page_obj = paginator.get_page(page)
+        context = {
                    'real_user': real_user, 
-                   'quant_form': quant_form
+                   'quant_form': quant_form,
+                   'page_obj': page_obj
                    }
         if request.method == "POST":
             pass
