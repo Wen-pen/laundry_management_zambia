@@ -10,11 +10,6 @@
 
 <div class="container-responsive">
   <div class="row">
-    <div class="col-sm-2">
-      <img src="{% static "default.jpg" %}" alt="Avatar Image" class="avatar
-      my-5 mx-3 text-center" style="width: 150px; height: 150px; vertical-align:
-      middle; border-radius: 50%;">
-    </div>
     <div class="col-md mx-3">
       <h1 class="fw-bolder my-3 mx-3">
         {{request.user.first_name}} {{request.user.last_name}}
@@ -25,9 +20,6 @@
       <div class="col-sm">
         <a href="/dashboard" style="text-decoration: none">
           <button class="btn btn-secondary mx-3">View/Create Orders</button>
-        </a>
-        <a href="/profile_form">
-          <button class="btn btn-secondary mx-3">Change Profile Picture</button>
         </a>
       </div>
     </div>
@@ -48,21 +40,25 @@
   </div>
   <div class="row justify-content-space-evenly">
     <div class="col mx-3 my-2">
-      <h4 class="text-center">Number of Items per order</h4>
+      <h4 class="text-center">
+        Number of items ordered
+      </h4>
       <canvas id="myChart" ></canvas>
     </div>
-    <div class="col mx-3 my-2">
-      <h4 class="text-center"> Item Type </h4>
+    <div class="col-4 mx-3 my-2">
+      <h4 class="text-center">
+        Number of items ordered
+      </h4>
       <canvas id="anotherChart" ></canvas>
     </div>
   </div>
 </div>
 
 <script>
-  var ctx = document.getElementById("myChart");
+  let ctx = document.getElementById("myChart")
   let ctx2 = document.getElementById("anotherChart")
 
-var myChart = new Chart(ctx, {
+  let myChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: {{order_name | safe}},
@@ -127,7 +123,7 @@ var myChart = new Chart(ctx, {
             'rgba(128, 128, 128, 0.5)' // Gray
           ],
           data: {{item_data | safe}}
-        }]
+        }],
     },
     options:{
         responsive: true,
