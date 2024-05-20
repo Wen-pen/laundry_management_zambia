@@ -48,6 +48,7 @@
             </tbody>
         </table>
     </div>
+
     <div class="d-flex justify-content-center">
         {% block pagination %}
             {% if page_obj.has_previous %}
@@ -67,20 +68,23 @@
                 </a>
             {% endif %}
     </div>
+
         <div class="container">
             <p class="text-center">
                 Current Page: <b>{{page_obj.number}}</b>
             </p> 
         </div>
         {% endblock %}
-   
-    <div class="container p-3 mb-3">
+    
+    
+    <form action="" method="post" class="form-control container mb-4 shadow-sm">
         {%csrf_token%}
-        <div class="row-sm">
+        <div class="row">
             {{quant_form | crispy}}
         </div>
-        <button type="button" class="btn btn-secondary" id="btn_orders">
+        <button type="submit" class="btn btn-secondary mb-3" >
             Create new order
         </button>
-    </div>
+    </form>
+
 {% endblock %}

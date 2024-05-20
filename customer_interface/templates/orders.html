@@ -7,14 +7,16 @@
 {%block content%}
 {% load static %}
 
-<h2 class="text-center p-3">Order Creation Form</h2>
+<h2 class="text-center p-3 mt-3 fw-bolder">Order Creation Form</h2>
+
+<hr>
 
 <form action="" method="post">
         {%csrf_token%}
             {{formset.management_form}}
             {% for form in formset%}
             <div class="container border rounded my-5 shadow">
-                <h4 class="p-3">Item {{forloop.counter}}</h4>
+                <h4 class="p-3 fw-bold">Item {{forloop.counter}}</h4>
                 <div class="row p-3">
                     <div class="col-3">
                         {{form.service_type | as_crispy_field}}
@@ -33,10 +35,16 @@
                 </div>
             </div>
             {%endfor%}
-            <div class="container">
-                <button type="submit" class="btn btn-secondary my-3 shadow">
-                    Submit
-                </button>
+            <div class="container text-center my-3">
+                        <button type="submit" class="btn btn-secondary my-3 mx-3">
+                            Submit
+                        </button>
+                        <a href="/dashboard/1">
+                            <button type="button" class="btn btn-danger my-3 mx-3">
+                                Go Back
+                            </button>
+                        </a>
+                </div>
             </div>
         {{form.errors}}
 </form>

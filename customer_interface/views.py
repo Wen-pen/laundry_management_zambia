@@ -29,7 +29,14 @@ def dashboard(request, page):
                    'page_obj': page_obj
                    }
         if request.method == "POST":
-            pass
+            quant_form = QuantityForm(request.POST)
+            if quant_form.is_valid():
+                number = quant_form.cleaned_data.get('number')
+                print(number)
+                if number > 10 or number < 1:
+                    messages.error("Please enter a number between 1 and 10")
+                else:
+                    return redirect(f"/orders/{number}")
     else:
         context = {}
     
@@ -82,27 +89,30 @@ def logout_view(request):
     
 @login_required
 def orders(request, quantity):
-    OrderModelFormSet = modelformset_factory(OrderItem, form=OrderForm, extra=quantity)
-    user = request.user
-    Order_Form = OrderModelFormSet(queryset=OrderItem.objects.none())
-    if request.method == "POST":
-        Order_Form = OrderModelFormSet(request.POST)
-        if request.user.is_authenticated:
-            if Order_Form.is_valid():
-                instances = Order_Form.save(commit=False)
-                order_save = Orders(user_id_fk = user)
-                order_save.save()
-                
-                for instance in instances:
-                    order_id_fk = order_save
-                    instance.order_id_fk = order_id_fk
-                    instance.save()
+    if quantity >= 1 and quantity <= 10:
+        OrderModelFormSet = modelformset_factory(OrderItem, form=OrderForm, extra=quantity)
+        user = request.user
+        Order_Form = OrderModelFormSet(queryset=OrderItem.objects.none())
+        if request.method == "POST":
+            Order_Form = OrderModelFormSet(request.POST)
+            if request.user.is_authenticated:
+                if Order_Form.is_valid():
+                    instances = Order_Form.save(commit=False)
+                    order_save = Orders(user_id_fk = user)
+                    order_save.save()
+                    
+                    for instance in instances:
+                        order_id_fk = order_save
+                        instance.order_id_fk = order_id_fk
+                        instance.save()
 
-                return redirect("/prices")
+                    return redirect("/prices")
 
-    context = {"formset": Order_Form}
-    template = loader.get_template('orders.html')
-    return HttpResponse(template.render(context, request))
+        context = {"formset": Order_Form}
+        template = loader.get_template('orders.html')
+        return HttpResponse(template.render(context, request))
+    else:
+        return redirect("/dashboard/1")
 
 @login_required
 def prices(request):
@@ -151,7 +161,8 @@ def profile_view(request):
 
     template = loader.get_template('profile.html')
     orders = Orders.objects.filter(user_id_fk = request.user.id)
-    last_order = orders.last()
+    first_order = orders.filter(order_status = "Pending").first()
+
     
     for order in orders:
         total_price = total_price + order.price_calculated
@@ -174,7 +185,7 @@ def profile_view(request):
                'orders': orders, 
                'price': average_price, 
                "count": count_arr,
-               "last_order": last_order, 
+               "first_order": first_order, 
                "order_name": order_name,
                "item_label": item_label,
                "item_data": item_data
