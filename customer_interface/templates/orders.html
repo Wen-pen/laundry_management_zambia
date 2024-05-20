@@ -7,26 +7,37 @@
 {%block content%}
 {% load static %}
 
-<h2 class="mt-3 mx-3">Order Creation Form</h2>
-
-<hr class="my4">
+<h2 class="text-center p-3">Order Creation Form</h2>
 
 <form action="" method="post">
-    
-    <div class="container">
         {%csrf_token%}
-        
             {{formset.management_form}}
             {% for form in formset%}
-                <h4 class="py-3">Item {{forloop.counter}}</h4>
-                {{form | crispy}}
+            <div class="container border rounded my-4 shadow">
+                <h4 class="p-3">Item {{forloop.counter}}</h4>
+                <div class="row p-3">
+                    <div class="col-3">
+                        {{form.service_type | as_crispy_field}}
+                    </div>
+                    <div class="col">
+                        {{form.special_instructions | as_crispy_field}}
+                    </div>
+                    <div class="col-3">
+                        {{form.category | as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row p-3">
+                    <div class="col">
+                        {{form.optional_instructions | as_crispy_field}}
+                    </div>
+                </div>
+            </div>
             {%endfor%}
+            <div class="container">
+                <button type="submit" class="btn btn-secondary my-3 shadow">
+                    Submit
+                </button>
+            </div>
         {{form.errors}}
-
-        <button type="submit" class="btn btn-secondary my-3">
-            Submit
-        </button>
-
-    </div>
 </form>
 {%endblock%}

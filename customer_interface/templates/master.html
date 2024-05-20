@@ -6,6 +6,8 @@
   {% load bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
+  
+ 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script type="module" src="{% static '/index.js' %}"></script>
@@ -14,7 +16,7 @@
   {% if user.is_authenticated %}
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand">
+        <a class="navbar-brand" href="/">
           Laundry Service
         </a>
         <button class="navbar-toggler"data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" type="button">

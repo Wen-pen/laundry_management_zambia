@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
-from .forms import SignupForm, NameForm, CreditForm, QuantityForm, OrderForm, UpdateProfileForm
+from .forms import SignupForm, NameForm, CreditForm, QuantityForm, OrderForm
 from django.contrib.auth import logout
-from .models import Orders, OrderItem, Sales, CustomUser
+from .models import Orders, OrderItem, Sales
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages

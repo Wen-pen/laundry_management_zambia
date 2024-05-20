@@ -8,16 +8,15 @@ class SignupForm(forms.ModelForm):
     class Meta: 
         model = CustomUser
         fields = ('username', 'email', 'password', 'first_name', 'last_name', 'phone_number')
+        labels = {
+            "phone_number": "Phone Number",
+        }
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control text-center'}),
             'email': forms.TextInput(attrs={'class': 'form-control text-center'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control text-center'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control text-center'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control text-center'}),
-            'phone_number': PhoneNumberPrefixWidget(
-
-                attrs={'class': 'form-control text-center'},
-            ),
         }
 
     def save(self, commit=True):
@@ -49,9 +48,3 @@ class CreditForm(forms.Form):
 
 class QuantityForm(forms.Form):
     number = forms.IntegerField(max_value=10, min_value=1, required=True, label="Number of Items")
-
-class UpdateProfileForm(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ['profile_picture']
-
