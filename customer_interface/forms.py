@@ -46,4 +46,4 @@ class CreditForm(forms.Form):
     cc_code = SecurityCodeField(label='CVV/CVC')
 
 class QuantityForm(forms.Form):
-    number = forms.IntegerField(max_value=10, min_value=1, required=True, label="")
+    number = forms.IntegerField(max_value=10, min_value=1, required=True, label="Quantity")
