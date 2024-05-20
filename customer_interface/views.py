@@ -143,6 +143,7 @@ def change_password(request):
         context = {'form': form}
         template = loader.get_template('registration/change_password.html')
         return HttpResponse(template.render(context, request))
+    
 @login_required   
 def view_items(request, id):
     order = Orders.objects.filter(id = id)

@@ -1,7 +1,6 @@
 from django import forms
 from .models import CustomUser, OrderItem
 from phonenumber_field.formfields import PhoneNumberField
-from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from creditcards.forms import CardNumberField, CardExpiryField, SecurityCodeField
 
 class SignupForm(forms.ModelForm):
@@ -47,4 +46,4 @@ class CreditForm(forms.Form):
     cc_code = SecurityCodeField(label='CVV/CVC')
 
 class QuantityForm(forms.Form):
-    number = forms.IntegerField(max_value=10, min_value=1, required=True, label="Number of Items")
+    number = forms.IntegerField(max_value=10, min_value=1, required=True, label="")
