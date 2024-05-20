@@ -55,12 +55,12 @@
                     ⏪
                 </a>
                 <a href="{% url "dashboard" page_obj.previous_page_number %}" class="btn btn-secondary my-2 mx-2">
-                    Previous
+                    ◀️
                 </a>
             {% endif %}
             {% if page_obj.has_next %}
                 <a href="{% url "dashboard" page_obj.next_page_number %}" class="btn btn-secondary my-2 mx-2">
-                    Next
+                    ▶️
                 </a>
                 <a href="{% url 'dashboard' page_obj.paginator.num_pages %}" class="btn btn-secondary my-2 mx-2">
                     ⏩

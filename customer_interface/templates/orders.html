@@ -13,7 +13,7 @@
         {%csrf_token%}
             {{formset.management_form}}
             {% for form in formset%}
-            <div class="container border rounded my-4 shadow">
+            <div class="container border rounded my-5 shadow">
                 <h4 class="p-3">Item {{forloop.counter}}</h4>
                 <div class="row p-3">
                     <div class="col-3">
