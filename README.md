@@ -1,3 +1,2 @@
 # Laundry Management Zambia
-
-Laundry Management System made in Django, using Bootstrap as a frontend
+I created a Laundry Management System using Django for the backend and Bootstrap for the frontend.
